@@ -5,13 +5,10 @@ import com.bilgeadam.entity.Brand;
 import com.bilgeadam.service.BrandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-
 import static com.bilgeadam.constants.EndPointList.*;
 
 @RestController
@@ -20,7 +17,7 @@ import static com.bilgeadam.constants.EndPointList.*;
 public class BrandController {
     private final BrandService brandService;
     @PostMapping(SAVE)
-    public ResponseEntity<Brand> saveBrand( SaveBrandRequestDto dto){
+    public ResponseEntity<Brand> saveBrand(@RequestBody @Valid SaveBrandRequestDto dto){
         return ResponseEntity.ok(brandService.save(dto));
     }
     @GetMapping(FIND_ALL)

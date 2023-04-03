@@ -2,12 +2,15 @@ package com.bilgeadam.service;
 
 import com.bilgeadam.dto.request.SaveColorRequestDto;
 import com.bilgeadam.entity.Color;
+import com.bilgeadam.exception.ErrorType;
+import com.bilgeadam.exception.RentaCarException;
 import com.bilgeadam.mapper.IColorMapper;
 import com.bilgeadam.repository.IColorRepository;
 import com.bilgeadam.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ColorService extends ServiceManager<Color,Long> {
@@ -17,13 +20,16 @@ public class ColorService extends ServiceManager<Color,Long> {
         this.colorRepository=colorRepository;
     }
     public Color save(SaveColorRequestDto dto){
-        Color color=save(IColorMapper.INSTANCE.toColor(dto));
-        return color;
+        Optional<Color> color=colorRepository.findOptionalByColornameIgnoreCase(dto.getColorname());
+        if(color.isPresent()){
+            throw new RentaCarException(ErrorType.COLOR_IS_EXIST);
+        }
+        return save(IColorMapper.INSTANCE.toColor(dto));
     }
     public List<Color> findAll() {
         List<Color> color=colorRepository.findAll();
         if(color.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.NOT_FOUND_COLOR);
         }
         return color;
     }

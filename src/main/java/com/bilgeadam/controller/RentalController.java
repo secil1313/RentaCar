@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.bilgeadam.constants.EndPointList.*;
@@ -15,8 +16,8 @@ import static com.bilgeadam.constants.EndPointList.*;
 @RequiredArgsConstructor
 public class RentalController {
     private final RentalService rentalService;
-    @PostMapping(RENTAL)
-    public ResponseEntity<Rental> saveRental(@RequestBody SaveRentalRequestDto dto){
+    @PostMapping(RENTAL+"/{dto}")
+    public ResponseEntity<Rental> saveRental(@RequestBody @Valid SaveRentalRequestDto dto){
         return ResponseEntity.ok(rentalService.save(dto));
     }
     @GetMapping(FIND_ALL)

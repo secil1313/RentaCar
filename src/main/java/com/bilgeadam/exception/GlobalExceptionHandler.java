@@ -33,10 +33,10 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
-    @ExceptionHandler(KitapcimException.class)
+    @ExceptionHandler(RentaCarException.class)
     @ResponseBody
-    public ResponseEntity<ErrorMessage> handlerKitapcimException(KitapcimException exception){
-        System.out.println("KitapcimException hatası...: "+ exception.toString());
+    public ResponseEntity<ErrorMessage> handlerKitapcimException(RentaCarException exception){
+        System.out.println("RentaCarException hatası...: "+ exception.toString());
         return new ResponseEntity(createErrorMessage(exception.getErrorType(),exception),exception.getErrorType().getHttpStatus());
     }
 

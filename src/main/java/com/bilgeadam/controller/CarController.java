@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-
 import static com.bilgeadam.constants.EndPointList.*;
 
 @RestController
@@ -20,7 +20,7 @@ import static com.bilgeadam.constants.EndPointList.*;
 public class CarController {
     private final CarService carService;
     @PostMapping(SAVE)
-    public ResponseEntity<Car> saveKitap(@RequestBody SaveCarRequestDto dto){
+    public ResponseEntity<Car> saveKitap(@RequestBody @Valid SaveCarRequestDto dto){
         return ResponseEntity.ok(carService.save(dto));
     }
     @GetMapping(FIND_ALL)
@@ -28,25 +28,25 @@ public class CarController {
         List<Car> result=carService.findAll();
         return ResponseEntity.ok(result);
     }
-    @GetMapping(STARTING_WITH)
-    public ResponseEntity<List<Car>> findAllByNameStartingWithIgnoreCase(String name){
+    @GetMapping(STARTING_WITH+"/{name}")
+    public ResponseEntity<List<Car>> findAllByNameStartingWithIgnoreCase(@PathVariable String name){
      return  ResponseEntity.ok(carService.findAllByNameStartingWithIgnoreCase(name));
 
     }
-    @GetMapping(FIND_ALL_BY_BRANDID)
-    public ResponseEntity<List<Car>> findAllByBrandid(Long id){
+    @GetMapping(FIND_ALL_BY_BRANDID+"/{id}")
+    public ResponseEntity<List<Car>> findAllByBrandid(@PathVariable Long id){
         return ResponseEntity.ok(carService.findAllByBrandid(id));
     }
-    @GetMapping(FIND_ALL_BY_COLORID)
-    public ResponseEntity<List<Car>> findAllByColorid(Long id){
+    @GetMapping(FIND_ALL_BY_COLORID+"/{id}")
+    public ResponseEntity<List<Car>> findAllByColorid(@PathVariable Long id){
         return ResponseEntity.ok(carService.findAllByColorid(id));
     }
     @GetMapping(FIND_CARS_COLOR_BRAND)
     public ResponseEntity<List<CarColorBrand>> findCarsWithColorAndBrand(){
         return ResponseEntity.ok(carService.findCarsWithColorAndBrand());
     }
-    @GetMapping(FIND_DAILYPRICE_LESSTHAN)
-    public ResponseEntity<List<Car>> findAllByDailyPriceLessThanEqual(Long price){
+    @GetMapping(FIND_DAILYPRICE_LESSTHAN+"/{price}")
+    public ResponseEntity<List<Car>> findAllByDailyPriceLessThanEqual(@PathVariable Long price){
         return ResponseEntity.ok(carService.findAllByDailyPriceLessThanEqual(price));
     }
     @GetMapping(FIND_CAR_DAILY_PRICE)

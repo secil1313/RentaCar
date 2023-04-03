@@ -5,12 +5,11 @@ import com.bilgeadam.entity.Color;
 import com.bilgeadam.service.ColorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import static com.bilgeadam.constants.EndPointList.*;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
+
+import static com.bilgeadam.constants.EndPointList.*;
 import java.util.List;
 
 @RestController
@@ -19,7 +18,7 @@ import java.util.List;
 public class ColorController {
     private final ColorService colorService;
     @PostMapping(SAVE)
-    public ResponseEntity<Color> saveColor(SaveColorRequestDto dto){
+    public ResponseEntity<Color> saveColor(@RequestBody @Valid SaveColorRequestDto dto){
         return ResponseEntity.ok(colorService.save(dto));
     }
     @GetMapping(FIND_ALL)

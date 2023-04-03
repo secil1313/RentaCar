@@ -5,6 +5,8 @@ import com.bilgeadam.entity.Car;
 import com.bilgeadam.entity.JoinEntities.CarColorBrand;
 import com.bilgeadam.entity.JoinEntities.CarDailyPrice;
 import com.bilgeadam.entity.JoinEntities.DateNameBrandCompany;
+import com.bilgeadam.exception.ErrorType;
+import com.bilgeadam.exception.RentaCarException;
 import com.bilgeadam.mapper.ICarMapper;
 import com.bilgeadam.repository.ICarRepository;
 import com.bilgeadam.service.JoinServices.CarColorBrandService;
@@ -43,56 +45,56 @@ public class CarService extends ServiceManager<Car, Long> {
     public List<Car> findAll() {
         List<Car> carlist=carRepository.findAll();
         if(carlist.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.CAR_NOT_FOUND);
         }
         return carlist;
     }
     public List<Car> findAllByNameStartingWithIgnoreCase(String name){
         List<Car> car=carRepository.findAllByCarnameStartingWithIgnoreCase(name);
         if(car.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.CAR_NOT_FOUND);
         }
         return car;
     }
     public List<Car> findAllByBrandid(Long id){
         List<Car> car=carRepository.findAllByBrandid(id);
         if(car.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.NOT_FOUND_BRAND);
         }
         return car;
     }
     public List<Car> findAllByColorid(Long colorid){
         List<Car> car=carRepository.findAllByColorid(colorid);
         if(car.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.NOT_FOUND_COLOR);
         }
         return car;
     }
     public List<CarColorBrand> findCarsWithColorAndBrand(){
         List<CarColorBrand> ccb=carColorBrandService.findCarsColorAndBrand();
         if(ccb.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.CAR_NOT_FOUND);
         }
         return ccb;
     }
     public List<Car> findAllByDailyPriceLessThanEqual(Long price){
         List <Car> car=carRepository.findAllByDailyPriceLessThanEqual(price);
         if(car.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.NOT_FOUND_DAILY_PRICE);
         }
         return car;
     }
     public List<CarDailyPrice> findCarAndDailyPrice(){
         List<CarDailyPrice> cdp=carDailyPriceService.findCarAndDailyPrice();
         if(cdp.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.CAR_NOT_FOUND);
         }
         return cdp;
     }
     public List<DateNameBrandCompany> findDateNameBrandCompany() {
         List<DateNameBrandCompany> dnbc=dateNameBrandCompanyService.findDateNameBrandCompany();
         if(dnbc.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.CAR_NOT_FOUND);
         }
         return dnbc;
     }

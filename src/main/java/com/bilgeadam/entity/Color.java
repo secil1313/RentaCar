@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -18,5 +19,6 @@ public class Color {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//idyi otomatik arttırıyordu.
 
     Long colorid;
+
     String colorname;
 }

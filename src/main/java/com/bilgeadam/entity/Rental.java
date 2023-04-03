@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -19,6 +20,7 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//idyi otomatik arttırıyordu.
 
     Long rentalid;
+
     Long rentDate;
     Long customerid;
     Long carid;

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -18,6 +19,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//idyi otomatik arttırıyordu.
 
     Long carid;
+
     String carname;
     Long modelYear;
     Long dailyPrice;

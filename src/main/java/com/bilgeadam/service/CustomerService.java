@@ -2,6 +2,8 @@ package com.bilgeadam.service;
 
 import com.bilgeadam.dto.request.SaveCustomerRequestDto;
 import com.bilgeadam.entity.Customer;
+import com.bilgeadam.exception.ErrorType;
+import com.bilgeadam.exception.RentaCarException;
 import com.bilgeadam.mapper.ICustomerMapper;
 import com.bilgeadam.repository.ICustomerRepository;
 import com.bilgeadam.utility.ServiceManager;
@@ -23,7 +25,7 @@ public class CustomerService extends ServiceManager<Customer,Long> {
     public List<Customer> findAll() {
         List<Customer> customers=customerRepository.findAll();
         if(customers.isEmpty()){
-            throw new NullPointerException("Liste boş");
+            throw new RentaCarException(ErrorType.CAR_NOT_FOUND);
         }
         return customers;
     }
